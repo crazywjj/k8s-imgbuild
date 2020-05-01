@@ -10,9 +10,14 @@
 
 首先在github创建一个repository，创建好后然后git clone到本地，并在本地创建所需下载的镜像dockerfile，这里本地的目录层级为 镜像名称->版本号->dockerfile。创建之后再把所有的文件push到github仓库。最后的结果如下：
 
+![1588335100233](assets/1588335100233.png)
 
+Dockerfile内容如下：
 
-
+```bash
+From k8s.gcr.io/kube-scheduler:v1.18.0
+MAINTAINER Rotel <602616568@qq.com>
+```
 
 
 
