@@ -6,7 +6,7 @@
 
 **解决办法：** 购买vpn 或者通过阿里云的容器镜像服务镜像构建。
 
-# Step 1
+# Step 1：创建github仓库
 
 首先在github创建一个repository，创建好后然后git clone到本地，并在本地创建所需下载的镜像dockerfile，这里本地的目录层级为 镜像名称->版本号->dockerfile。创建之后再把所有的文件push到github仓库。最后的结果如下：
 
@@ -16,7 +16,7 @@
 
 
 
-# Step 2
+# Step 2：构建镜像
 
 登录阿里云的容器镜像服务网址https://www.aliyun.com/product/acr，进入管理控制台，在容器镜像服务->镜像列表->创建镜像仓库，按照要求填写相关信息，示例如下
 
@@ -58,13 +58,64 @@
 
 ![1588294880197](assets/1588294880197.png)
 
-构建日志
+构建日志：失败请查看日志
+
+![1588295500085](assets/1588295500085.png)
 
 
 
+# Step 3：拉取镜像
 
 
 
+![1588295787123](assets/1588295787123.png)
+
+**服务器拉取**
+
+1、登录阿里云Docker Registry
+
+```bash
+[root@ k8s-m01 ~]#  sudo docker login --username=xxx@qq.com registry.cn-beijing.aliyuncs.com
+Password:阿里云开通服务时密码
+```
+
+用于登录的用户名为阿里云账号全名，密码为开通服务时设置的密码。
+
+您可以在访问凭证页面修改凭证密码。
+
+2.、从Registry中拉取镜像
+
+```bash
+[root@ k8s-m01 ~]# sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
+v1.18.0: Pulling from crazywjj/kube-controller-manager
+597de8ba0c30: Already exists
+6d779a49f26c: Pull complete
+Digest: sha256:41d670e8a18ed7c7f7bb4bdb8e43f73be11c11a2e25f1d60e10ef5f109daa22f
+Status: Downloaded newer image for registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
+
+```
+
+3、 重命名镜像 
+
+```bash
+[root@ k8s-m01 ~]# docker images
+REPOSITORY                                                          TAG                 IMAGE ID            CREATED             SIZE
+registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager   v1.18.0             30debe67b819        42 minutes ago      162MB
+k8s.gcr.io/kube-apiserver                                           v1.18.0             1746857eef21        About an hour ago   173MB
+
+
+[root@ k8s-m01 ~]# docker tag registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0 k8s.gcr.io/kube-controller-manager:v1.18.0
+
+[root@ k8s-m01 ~]# docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
+Untagged: registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
+Untagged: registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager@sha256:41d670e8a18ed7c7f7bb4bdb8e43f73be11c11a2e25f1d60e10ef5f109daa22f
+
+[root@ k8s-m01 ~]# docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+k8s.gcr.io/kube-controller-manager   v1.18.0             30debe67b819        44 minutes ago      162MB
+k8s.gcr.io/kube-apiserver            v1.18.0             1746857eef21        About an hour ago   173MB
+
+```
 
 
 
