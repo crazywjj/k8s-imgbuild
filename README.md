@@ -2,17 +2,42 @@
 
 # 使用我构建好的
 
-| 组件                    | 版本    | 备注                                                         |
-| :---------------------- | :------ | :----------------------------------------------------------- |
-| kube-apiserver          | v1.18.0 |                                                              |
-| kube-controller-manager | v1.18.0 |                                                              |
-| kube-scheduler          | v1.18.0 |                                                              |
-| kube-proxy              | v1.18.0 |                                                              |
-| pause                   | 3.2     |                                                              |
-| etcd                    | 3.4.3-0 |                                                              |
-| coredns                 | 1.6.7   |                                                              |
-| calico                  | v3.13.3 | pod2daemon-flexvol:v3.13.3；node:v3.13.3；kube-controllers:v3.13.3；cni:v3.13.3 |
-| flannel                 | v0.12.0 | flannel:v0.12.0-amd64；flannel:v0.12.0-arm；flannel:v0.12.0-ppc64le；flannel:v0.12.0-s390x |
+
+
+
+
+| REPOSITORY                         | TAG     |
+| ---------------------------------- | :------ |
+| k8s.gcr.io/kube-apiserver          | v1.18.0 |
+| k8s.gcr.io/kube-controller-manager | v1.18.0 |
+| k8s.gcr.io/kube-proxy              | v1.18.0 |
+| k8s.gcr.io/kube-scheduler          | v1.18.0 |
+| k8s.gcr.io/coredns                 | 1.6.7   |
+| k8s.gcr.io/etcd                    | 3.4.3-0 |
+| k8s.gcr.io/pause                   | 3.2     |
+
+
+
+| REPOSITORY                | TAG     |
+| ------------------------- | ------- |
+| calico/cni                | v3.13.3 |
+| calico/kube-controllers   | v3.13.3 |
+| calico/node               | v3.13.3 |
+| calico/pod2daemon-flexvol | v3.13.3 |
+
+
+
+| REPOSITORY             | TAG             |
+| ---------------------- | --------------- |
+| quay.io/coreos/flannel | v0.12.0-amd64   |
+|                        | v0.12.0-arm64   |
+|                        | v0.12.0-arm     |
+|                        | v0.12.0-ppc64le |
+|                        | v0.12.0-s390x   |
+
+
+
+
 
 脚本下载所有镜像并改名：
 
