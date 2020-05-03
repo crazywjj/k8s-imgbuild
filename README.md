@@ -2,16 +2,23 @@
 
 # 使用我构建好的
 
-| 名称           | 版本    | 下载地址                                                     |
-| -------------- | ------- | ------------------------------------------------------------ |
-| kube-apiserver | v1.18.0 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-apiserver:v1.18.0 |
-|                |         |                                                              |
-|                |         |                                                              |
-|                |         |                                                              |
-|                |         |                                                              |
-|                |         |                                                              |
+| 组件                    | 版本    | 备注                                                         |
+| :---------------------- | :------ | :----------------------------------------------------------- |
+| kube-apiserver          | v1.18.0 |                                                              |
+| kube-controller-manager | v1.18.0 |                                                              |
+| kube-scheduler          | v1.18.0 |                                                              |
+| kube-proxy              | v1.18.0 |                                                              |
+| pause                   | 3.2     |                                                              |
+| etcd                    | 3.4.3-0 |                                                              |
+| coredns                 | 1.6.7   |                                                              |
+| calico                  | v3.13.3 | pod2daemon-flexvol:v3.13.3；node:v3.13.3；kube-controllers:v3.13.3；cni:v3.13.3 |
+| flannel                 | v0.12.0 | flannel:v0.12.0-amd64；flannel:v0.12.0-arm；flannel:v0.12.0-ppc64le；flannel:v0.12.0-s390x |
 
+脚本下载所有镜像并改名：
 
+```
+
+```
 
 
 
