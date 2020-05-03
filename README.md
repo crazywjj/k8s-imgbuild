@@ -1,12 +1,27 @@
 # k8s-imgbuild
 
+# 使用我构建好的
 
+| 名称           | 版本    | 下载地址                                                     |
+| -------------- | ------- | ------------------------------------------------------------ |
+| kube-apiserver | v1.18.0 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-apiserver:v1.18.0 |
+|                |         |                                                              |
+|                |         |                                                              |
+|                |         |                                                              |
+|                |         |                                                              |
+|                |         |                                                              |
+
+
+
+
+
+# 如何自己构建
 
 通过kubeadm部署k8s集群，在执行kubeadm init命令时，默认生成的manifests文件夹下yaml文件的镜像都是gcr.io上的，在国内由于被墙而不能正常下载，也就导致了集群不能正常安装。
 
 **解决办法：** 购买vpn 或者通过阿里云的容器镜像服务镜像构建。
 
-# Step 1：创建github仓库
+## Step 1：创建github仓库
 
 首先在github创建一个repository，创建好后然后git clone到本地，并在本地创建所需下载的镜像dockerfile，这里本地的目录层级为 镜像名称->版本号->dockerfile。创建之后再把所有的文件push到github仓库。最后的结果如下：
 
@@ -21,7 +36,7 @@ MAINTAINER Rotel <602616568@qq.com>
 
 
 
-# Step 2：构建镜像
+## Step 2：构建镜像
 
 登录阿里云的容器镜像服务网址  https://www.aliyun.com/product/acr ，进入管理控制台，在容器镜像服务->镜像列表->创建镜像仓库，按照要求填写相关信息，示例如下
 
@@ -69,7 +84,7 @@ MAINTAINER Rotel <602616568@qq.com>
 
 
 
-# Step 3：拉取镜像
+## Step 3：拉取镜像
 
 
 
