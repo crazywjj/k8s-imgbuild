@@ -2,9 +2,6 @@
 
 # 构建信息
 
-**代码仓库地址：**
-https://github.com/crazywjj/k8s-imgbuild
-
 **阿里云容器镜像仓库信息：**
 
 | 仓库名称                | Dockerfile目录                   | 镜像版本 | 拉取镜像                                                     |
