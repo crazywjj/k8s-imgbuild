@@ -1,6 +1,6 @@
 # k8s-imgbuild
 
-# 构建信息
+# 使用已构建的
 
 **代码仓库地址：**
 https://github.com/crazywjj/k8s-imgbuild
@@ -46,7 +46,7 @@ https://github.com/crazywjj/k8s-imgbuild
 
 
 
-# 如何构建
+# 如何自己构建
 
 通过kubeadm部署k8s集群，在执行kubeadm init命令时，默认生成的manifests文件夹下yaml文件的镜像都是gcr.io上的，在国内由于被墙而不能正常下载，也就导致了集群不能正常安装。
 
