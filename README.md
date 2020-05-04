@@ -1,20 +1,18 @@
 # k8s-imgbuild
 
-# 使用我构建好的
+# 使用已构建的
 
 
 
-
-
-| REPOSITORY                         | TAG     |
-| ---------------------------------- | :------ |
-| k8s.gcr.io/kube-apiserver          | v1.18.0 |
-| k8s.gcr.io/kube-controller-manager | v1.18.0 |
-| k8s.gcr.io/kube-proxy              | v1.18.0 |
-| k8s.gcr.io/kube-scheduler          | v1.18.0 |
-| k8s.gcr.io/coredns                 | 1.6.7   |
-| k8s.gcr.io/etcd                    | 3.4.3-0 |
-| k8s.gcr.io/pause                   | 3.2     |
+| REPOSITORY              | TAG     |
+| ----------------------- | :------ |
+| kube-apiserver          | v1.18.0 |
+| kube-controller-manager | v1.18.0 |
+| kube-proxy              | v1.18.0 |
+| kube-scheduler          | v1.18.0 |
+| coredns                 | 1.6.7   |
+| etcd                    | 3.4.3-0 |
+| pause                   | 3.2     |
 
 
 
@@ -27,13 +25,13 @@
 
 
 
-| REPOSITORY             | TAG             |
-| ---------------------- | --------------- |
-| quay.io/coreos/flannel | v0.12.0-amd64   |
-|                        | v0.12.0-arm64   |
-|                        | v0.12.0-arm     |
-|                        | v0.12.0-ppc64le |
-|                        | v0.12.0-s390x   |
+| REPOSITORY | TAG             |
+| ---------- | --------------- |
+| flannel    | v0.12.0-amd64   |
+|            | v0.12.0-arm64   |
+|            | v0.12.0-arm     |
+|            | v0.12.0-ppc64le |
+|            | v0.12.0-s390x   |
 
 
 
@@ -42,7 +40,7 @@
 脚本下载所有镜像并改名：
 
 ```
-
+k8s.gcr.io
 ```
 
 
@@ -58,6 +56,8 @@
 首先在github创建一个repository，创建好后然后git clone到本地，并在本地创建所需下载的镜像dockerfile，这里本地的目录层级为 镜像名称->版本号->dockerfile。创建之后再把所有的文件push到github仓库。最后的结果如下：
 
 ![1588335100233](assets/1588335100233.png)
+
+
 
 Dockerfile内容如下：
 
@@ -86,48 +86,38 @@ MAINTAINER Rotel <602616568@qq.com>
 
 ![1588294478944](assets/1588294478944.png)
 
+![1588512993185](assets/1588512993185.png)
+
+![1588512955380](assets/1588512955380.png)
+
 
 
 ![1588294551294](assets/1588294551294.png)
 
-
-
-![1588294628372](assets/1588294628372.png)
-
-
-
 **添加构建规则：**
 
-![1588294702747](assets/1588294702747.png)
-
-
-
-![1588294997841](assets/1588294997841.png)
-
-
-
-**立即构建：**
+**==注意：每个仓库最多能创建5条规则==**
 
 ![1588294880197](assets/1588294880197.png)
 
+**立即构建：**
+
+![1588513300597](assets/1588513300597.png)
+
 构建日志：失败请查看日志
 
-![1588295500085](assets/1588295500085.png)
+![1588513324900](assets/1588513324900.png)
 
 
 
 ## Step 3：拉取镜像
 
-
-
-![1588295787123](assets/1588295787123.png)
-
 **服务器拉取**
 
-1、登录阿里云Docker Registry
+1、登录阿里云Docker Registry（私有库需要登录；公有库直接拉取）
 
 ```bash
-[root@ k8s-m01 ~]#  sudo docker login --username=xxx@qq.com registry.cn-beijing.aliyuncs.com
+$ sudo docker login --username=xxx@qq.com registry.cn-beijing.aliyuncs.com
 Password:阿里云开通服务时密码
 ```
 
@@ -138,35 +128,19 @@ Password:阿里云开通服务时密码
 2.、从Registry中拉取镜像
 
 ```bash
-[root@ k8s-m01 ~]# sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
-v1.18.0: Pulling from crazywjj/kube-controller-manager
-597de8ba0c30: Already exists
-6d779a49f26c: Pull complete
-Digest: sha256:41d670e8a18ed7c7f7bb4bdb8e43f73be11c11a2e25f1d60e10ef5f109daa22f
-Status: Downloaded newer image for registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
-
+$ sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/k8s.gcr.io:kube-apiserver-v1.18.0
 ```
 
 3、 重命名镜像 
 
 ```bash
-[root@ k8s-m01 ~]# docker images
-REPOSITORY                                                          TAG                 IMAGE ID            CREATED             SIZE
-registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager   v1.18.0             30debe67b819        42 minutes ago      162MB
-k8s.gcr.io/kube-apiserver                                           v1.18.0             1746857eef21        About an hour ago   173MB
+$ docker images
+REPOSITORY                                             TAG                      IMAGE ID            CREATED             SIZE
+registry.cn-beijing.aliyuncs.com/crazywjj/k8s.gcr.io   kube-apiserver-v1.18.0   1a02b28ffedd        About an hour ago   173MB
 
+$ docker tag registry.cn-beijing.aliyuncs.com/crazywjj/k8s.gcr.io:kube-apiserver-v1.18.0 k8s.gcr.io/kube-controller-manager:v1.18.0
 
-[root@ k8s-m01 ~]# docker tag registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0 k8s.gcr.io/kube-controller-manager:v1.18.0
-
-[root@ k8s-m01 ~]# docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
-Untagged: registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:v1.18.0
-Untagged: registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager@sha256:41d670e8a18ed7c7f7bb4bdb8e43f73be11c11a2e25f1d60e10ef5f109daa22f
-
-[root@ k8s-m01 ~]# docker images
-REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
-k8s.gcr.io/kube-controller-manager   v1.18.0             30debe67b819        44 minutes ago      162MB
-k8s.gcr.io/kube-apiserver            v1.18.0             1746857eef21        About an hour ago   173MB
-
+$ docker rmi -fregistry.cn-beijing.aliyuncs.com/crazywjj/k8s.gcr.io:kube-apiserver-v1.18.0 
 ```
 
 
