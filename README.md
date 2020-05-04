@@ -2,45 +2,46 @@
 
 # 使用已构建的
 
+**代码仓库地址：**
+https://github.com/crazywjj/k8s-imgbuild
 
+**阿里云容器镜像仓库信息：**
 
-| REPOSITORY              | TAG     |
-| ----------------------- | :------ |
-| kube-apiserver          | v1.18.0 |
-| kube-controller-manager | v1.18.0 |
-| kube-proxy              | v1.18.0 |
-| kube-scheduler          | v1.18.0 |
-| coredns                 | 1.6.7   |
-| etcd                    | 3.4.3-0 |
-| pause                   | 3.2     |
-
-
-
-| REPOSITORY                | TAG     |
-| ------------------------- | ------- |
-| calico/cni                | v3.13.3 |
-| calico/kube-controllers   | v3.13.3 |
-| calico/node               | v3.13.3 |
-| calico/pod2daemon-flexvol | v3.13.3 |
+| 仓库名称                | Dockerfile目录                   | 镜像版本                        | 拉取镜像                                                     |
+| ----------------------- | -------------------------------- | :------------------------------ | ------------------------------------------------------------ |
+| kube-apiserver          | /kube-apiserver/v1.18.0          | kube-apiserver-v1.18.0          | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-apiserver:[镜像版本号] |
+| kube-controller-manager | /kube-controller-manager/v1.18.0 | kube-controller-manager-v1.18.0 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-controller-manager:[镜像版本号] |
+| kube-proxy              | /kube-proxy/v1.18.0              | kube-proxy-v1.18.0              | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-proxy:[镜像版本号] |
+| kube-scheduler          | /kube-scheduler/v1.18.0          | kube-scheduler-v1.18.0          | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-scheduler:[镜像版本号] |
+| coredns                 | /coredns/1.6.7                   | coredns-1.6.7                   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coredns:[镜像版本号] |
+| etcd                    | /etcd/3.4.3-0                    | etcd-3.4.3-0                    | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/etcd:[镜像版本号] |
+| pause                   | /pause/3.2                       | pause-3.2                       | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/pause:[镜像版本号] |
 
 
 
-| REPOSITORY | TAG             |
-| ---------- | --------------- |
-| flannel    | v0.12.0-amd64   |
-|            | v0.12.0-arm64   |
-|            | v0.12.0-arm     |
-|            | v0.12.0-ppc64le |
-|            | v0.12.0-s390x   |
+| 仓库名称 | Dockerfile目录                     | 镜像版本                   | 拉取镜像                                                     |
+| -------- | ---------------------------------- | -------------------------- | ------------------------------------------------------------ |
+| calico   | /calico/cni/v3.13.3                | cni-v3.13.3                | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/calico:[镜像版本号] |
+|          | /calico/kube-controllers/v3.13.3   | kube-controllers-v3.13.3   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/calico:[镜像版本号] |
+|          | /calico/node/v3.13.3               | node-v3.13.3               | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/calico:[镜像版本号] |
+|          | /calico/pod2daemon-flexvol/v3.13.3 | pod2daemon-flexvol-v3.13.3 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/calico:[镜像版本号] |
 
 
 
+| 仓库名称 | Dockerfile目录           | 镜像版本                | 拉取镜像                                                     |
+| -------- | ------------------------ | ----------------------- | ------------------------------------------------------------ |
+| flannel  | /flannel/v0.12.0-amd64   | flannel-v0.12.0-amd64   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
+|          | /flannel/v0.12.0-arm     | flannel-v0.12.0-arm     | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
+|          | /flannel/v0.12.0-arm64   | flannel-v0.12.0-arm64   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
+|          | /flannel/v0.12.0-ppc64le | flannel-v0.12.0-ppc64le | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
+|          | /flannel/v0.12.0-s390x   | flannel-v0.12.0-s390x   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
 
 
-脚本下载所有镜像并改名：
+
+下载所有镜像并改名：
 
 ```
-k8s.gcr.io
+
 ```
 
 
