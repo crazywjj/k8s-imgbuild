@@ -36,6 +36,15 @@ https://github.com/crazywjj/k8s-imgbuild
 |          | /flannel/v0.12.0-ppc64le | v0.12.0-ppc64le | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
 |          | /flannel/v0.12.0-s390x   | v0.12.0-s390x   | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:[镜像版本号] |
 
+
+
+| 仓库名称     | Dockerfile目录                       | 镜像版本   | 拉取镜像                                                     |
+| ------------ | ------------------------------------ | ---------- | ------------------------------------------------------------ |
+| kubernetesui | /kubernetesui/dashboard/v2.0.0-rc7   | v2.0.0-rc7 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:[镜像版本号] |
+|              | /kubernetesui/metrics-scraper/v1.0.4 | v1.0.4     | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:[镜像版本号] |
+
+
+
 **下载所有镜像并改名：**
 
 ```bash
@@ -88,7 +97,20 @@ do
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i quay.io/coreos/flannel:$i
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
 done
+----------------------------------------分割线-------------------------------------
+cat >kubernetesui.ini<<EOF
+dashboard:v2.0.0-rc7
+metrics-scraper:v1.0.4
+EOF
 
+for i in `cat kubernetesui.ini`
+do
+	REPO=$(echo "$i"|awk -F ':' '{print $1}')
+	TAG=$(echo "$i"|awk -F ':' '{print $NF}')
+    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
+	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG kubernetesui/$i
+	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
+done
 ```
 
 
