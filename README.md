@@ -156,7 +156,7 @@ for i in `cat prometheus.ini`
 do
 	REPO=$(echo "$i"|awk -F '_' '{print $1}')
 	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
-    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
+	sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i quay.io/prometheus/$REPO:$TAG
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
 done
