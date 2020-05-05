@@ -42,6 +42,27 @@
 
 
 
+| 仓库名称         | Dockerfile目录                                              | 镜像版本                            | 拉取镜像                                                     |
+| ---------------- | ----------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------ |
+| grafana          | /kube-prometheus/grafana/6.6.0                              | 6.6.0                               | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/grafana:[镜像版本号] |
+| configmap-reload | /kube-prometheus/configmap-reload/v0.3.0                    | v0.3.0                              | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:[镜像版本号] |
+| prometheus       | /kube-prometheus/prometheus/alertmanager/v0.20.0            | alertmanager_v0.20.0                | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
+|                  | /kube-prometheus/prometheus/node-exporter/v0.18.1           | node-exporter_v0.18.1               | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
+|                  | /kube-prometheus/prometheus/prometheus/v2.17.2              | prometheus_v2.17.2                  | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
+| coreos           | /kube-prometheus/coreos/k8s-prometheus-adapter-amd64/v0.5.0 | k8s-prometheus-adapter-amd64_v0.5.0 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
+|                  | /kube-prometheus/coreos/kube-rbac-proxy/v0.4.1              | kube-rbac-proxy_v0.4.1              | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
+|                  | /kube-prometheus/coreos/kube-state-metrics/v1.9.5           | kube-state-metrics_v1.9.5           | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
+|                  | /kube-prometheus/coreos/prometheus-config-reloader/v0.38.1  | prometheus-config-reloader_v0.38.1  | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
+|                  | /kube-prometheus/coreos/prometheus-operator/v0.38.1         | prometheus-operator_v0.38.1         | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
+
+
+
+
+
+
+
+
+
 **下载所有镜像并改名：**
 
 ```bash
@@ -111,6 +132,35 @@ do
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG kubernetesui/$i
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
+done
+
+----------------------------------------grafana镜像-------------------------------------
+TAG='6.6.0'
+sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG
+sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG grafana/grafana:$TAG
+sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG
+
+----------------------------------------configmap-reload镜像------------------------------------TAG='v0.3.0'
+sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
+sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG jimmidyson/configmap-reload:$TAG
+sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
+
+----------------------------------------coreos镜像------------------------------------
+cat >coreos.ini<<EOF
+k8s-prometheus-adapter-amd64_v0.5.0
+kube-rbac-proxy_v0.4.1
+kube-state-metrics_v1.9.5
+prometheus-config-reloader_v0.38.1
+prometheus-operator_v0.38.1
+EOF
+
+for i in `cat coreos.ini`
+do
+	REPO=$(echo "$i"|awk -F '_' '{print $1}')
+	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
+	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i quay.io/coreos/$REPO:$TAG
+	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
 done
 ```
 
