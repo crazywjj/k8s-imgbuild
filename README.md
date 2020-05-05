@@ -45,6 +45,7 @@
 **下载所有镜像并改名：**
 
 ```bash
+----------------------------------------kubeadm镜像-------------------------------------
 cat >k8s.ini<<EOF
 kube-apiserver:v1.18.0
 kube-controller-manager:v1.18.0
@@ -63,7 +64,8 @@ do
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/$i k8s.gcr.io/$REPO:$TAG
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/$i
 done
-----------------------------------------分割线-------------------------------------
+
+----------------------------------------calico镜像-------------------------------------
 cat >calico.ini<<EOF
 cni_v3.13.3
 node_v3.13.3
@@ -79,7 +81,8 @@ do
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i calico/$REPO:$TAG
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i
 done
-----------------------------------------分割线-------------------------------------
+
+----------------------------------------flannel镜像-------------------------------------
 cat >flannel.ini<<EOF
 v0.12.0-amd64
 v0.12.0-arm
@@ -94,7 +97,8 @@ do
 	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i quay.io/coreos/flannel:$i
 	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
 done
-----------------------------------------分割线-------------------------------------
+
+----------------------------------------dasboard镜像-------------------------------------
 cat >kubernetesui.ini<<EOF
 dashboard:v2.0.0-rc7
 metrics-scraper:v1.0.4
