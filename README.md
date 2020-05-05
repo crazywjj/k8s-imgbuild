@@ -79,11 +79,11 @@ EOF
 
 for i in `cat k8s.ini`
 do
-	REPO=$(echo "$i"|awk -F ':' '{print $1}')
-	TAG=$(echo "$i"|awk -F ':' '{print $2}')
+    REPO=$(echo "$i"|awk -F ':' '{print $1}')
+    TAG=$(echo "$i"|awk -F ':' '{print $2}')
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/$i
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/$i k8s.gcr.io/$REPO:$TAG
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/$i k8s.gcr.io/$REPO:$TAG
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/$i
 done
 
 ----------------------------------------calico镜像-------------------------------------
@@ -96,11 +96,11 @@ EOF
 
 for i in `cat calico.ini`
 do
-	REPO=$(echo "$i"|awk -F '_' '{print $1}')
-	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    REPO=$(echo "$i"|awk -F '_' '{print $1}')
+    TAG=$(echo "$i"|awk -F '_' '{print $NF}')
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i calico/$REPO:$TAG
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i calico/$REPO:$TAG
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/calico:$i
 done
 
 ----------------------------------------flannel镜像-------------------------------------
@@ -115,8 +115,8 @@ EOF
 for i in `cat flannel.ini`
 do
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i quay.io/coreos/flannel:$i
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i quay.io/coreos/flannel:$i
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
 done
 
 ----------------------------------------dasboard镜像-------------------------------------
@@ -127,11 +127,11 @@ EOF
 
 for i in `cat kubernetesui.ini`
 do
-	REPO=$(echo "$i"|awk -F ':' '{print $1}')
-	TAG=$(echo "$i"|awk -F ':' '{print $NF}')
+    REPO=$(echo "$i"|awk -F ':' '{print $1}')
+    TAG=$(echo "$i"|awk -F ':' '{print $NF}')
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG kubernetesui/$i
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG kubernetesui/$i
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kubernetesui:$TAG
 done
 
 ----------------------------------------grafana镜像-------------------------------------
@@ -154,11 +154,11 @@ EOF
 
 for i in `cat prometheus.ini`
 do
-	REPO=$(echo "$i"|awk -F '_' '{print $1}')
-	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
-	sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i quay.io/prometheus/$REPO:$TAG
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
+    REPO=$(echo "$i"|awk -F '_' '{print $1}')
+    TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i quay.io/prometheus/$REPO:$TAG
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
 done
 
 ----------------------------------------coreos镜像------------------------------------
@@ -172,11 +172,11 @@ EOF
 
 for i in `cat coreos.ini`
 do
-	REPO=$(echo "$i"|awk -F '_' '{print $1}')
-	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    REPO=$(echo "$i"|awk -F '_' '{print $1}')
+    TAG=$(echo "$i"|awk -F '_' '{print $NF}')
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
-	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i quay.io/coreos/$REPO:$TAG
-	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i quay.io/coreos/$REPO:$TAG
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
 done
 ```
 
