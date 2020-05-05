@@ -145,6 +145,22 @@ sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG jimmidyson/configmap-reload:$TAG
 sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 
+----------------------------------------prometheus镜像------------------------------------
+cat >prometheus.ini<<EOF
+alertmanager_v0.20.0
+node-exporter_v0.18.1	
+prometheus_v2.17.2
+EOF
+
+for i in `cat prometheus.ini`
+do
+	REPO=$(echo "$i"|awk -F '_' '{print $1}')
+	TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
+	sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i quay.io/prometheus/$REPO:$TAG
+	sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
+done
+
 ----------------------------------------coreos镜像------------------------------------
 cat >coreos.ini<<EOF
 k8s-prometheus-adapter-amd64_v0.5.0
