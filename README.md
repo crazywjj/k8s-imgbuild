@@ -57,7 +57,12 @@
 
 
 
-
+| 仓库名称 | Dockerfile目录            | 镜像版本             | 拉取镜像                                                     |
+| -------- | ------------------------- | -------------------- | ------------------------------------------------------------ |
+| efk      | /efk/alpine/3.6           | alpine_3.6           | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:[镜像版本号] |
+|          | /efk/elasticsearch/v7.4.2 | elasticsearch_v7.4.2 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:[镜像版本号] |
+|          | /efk/fluentd/v3.0.1       | fluentd_v3.0.1       | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:[镜像版本号] |
+|          | /efk/kibana/7.2.0         | kibana_7.2.0         | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:[镜像版本号] |
 
 
 
@@ -67,7 +72,7 @@
 
 ```bash
 ----------------------------------------kubeadm镜像-------------------------------------
-cat >k8s.ini<<EOF
+cat >k8s.images<<EOF
 kube-apiserver:v1.18.0
 kube-controller-manager:v1.18.0
 kube-proxy:v1.18.0
@@ -77,7 +82,7 @@ etcd:3.4.3-0
 pause:3.2
 EOF
 
-for i in `cat k8s.ini`
+for i in `cat k8s.images`
 do
     REPO=$(echo "$i"|awk -F ':' '{print $1}')
     TAG=$(echo "$i"|awk -F ':' '{print $2}')
@@ -87,14 +92,14 @@ do
 done
 
 ----------------------------------------calico镜像-------------------------------------
-cat >calico.ini<<EOF
+cat >calico.images<<EOF
 cni_v3.13.3
 node_v3.13.3
 kube-controllers_v3.13.3
 pod2daemon-flexvol_v3.13.3
 EOF
 
-for i in `cat calico.ini`
+for i in `cat calico.images`
 do
     REPO=$(echo "$i"|awk -F '_' '{print $1}')
     TAG=$(echo "$i"|awk -F '_' '{print $NF}')
@@ -104,7 +109,7 @@ do
 done
 
 ----------------------------------------flannel镜像-------------------------------------
-cat >flannel.ini<<EOF
+cat >flannel.images<<EOF
 v0.12.0-amd64
 v0.12.0-arm
 v0.12.0-arm64
@@ -112,7 +117,7 @@ v0.12.0-ppc64le
 v0.12.0-s390x
 EOF
 
-for i in `cat flannel.ini`
+for i in `cat flannel.images`
 do
     sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i
     sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/flannel:$i quay.io/coreos/flannel:$i
@@ -120,12 +125,12 @@ do
 done
 
 ----------------------------------------dasboard镜像-------------------------------------
-cat >kubernetesui.ini<<EOF
+cat >kubernetesui.images<<EOF
 dashboard:v2.0.0-rc7
 metrics-scraper:v1.0.4
 EOF
 
-for i in `cat kubernetesui.ini`
+for i in `cat kubernetesui.images`
 do
     REPO=$(echo "$i"|awk -F ':' '{print $1}')
     TAG=$(echo "$i"|awk -F ':' '{print $NF}')
@@ -146,13 +151,13 @@ sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 
 ----------------------------------------prometheus镜像------------------------------------
-cat >prometheus.ini<<EOF
+cat >prometheus.images<<EOF
 alertmanager_v0.20.0
 node-exporter_v0.18.1	
 prometheus_v2.17.2
 EOF
 
-for i in `cat prometheus.ini`
+for i in `cat prometheus.images`
 do
     REPO=$(echo "$i"|awk -F '_' '{print $1}')
     TAG=$(echo "$i"|awk -F '_' '{print $NF}')
@@ -162,7 +167,7 @@ do
 done
 
 ----------------------------------------coreos镜像------------------------------------
-cat >coreos.ini<<EOF
+cat >coreos.images<<EOF
 k8s-prometheus-adapter-amd64_v0.5.0
 kube-rbac-proxy_v0.4.1
 kube-state-metrics_v1.9.5
@@ -170,7 +175,7 @@ prometheus-config-reloader_v0.38.1
 prometheus-operator_v0.38.1
 EOF
 
-for i in `cat coreos.ini`
+for i in `cat coreos.images`
 do
     REPO=$(echo "$i"|awk -F '_' '{print $1}')
     TAG=$(echo "$i"|awk -F '_' '{print $NF}')
@@ -178,6 +183,30 @@ do
     sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i quay.io/coreos/$REPO:$TAG
     sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/coreos:$i
 done
+
+----------------------------------------efk镜像------------------------------------
+cat >efk.images<<EOF
+elasticsearch_v7.4.2
+fluentd_v3.0.1
+EOF
+
+for i in `cat efk.images`
+do
+    REPO=$(echo "$i"|awk -F '_' '{print $1}')
+    TAG=$(echo "$i"|awk -F '_' '{print $NF}')
+    sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:$i
+    sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/efk:$i quay.io/fluentd_elasticsearch/$REPO:$TAG
+    sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/efk:$i
+done
+
+sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:alpine_3.6
+sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/efk:alpine_3.6 alpine:3.6
+sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/efk:alpine_3.6
+
+sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/efk:kibana_7.2.0
+sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/efk:kibana_7.2.0 docker.elastic.co/kibana/kibana-oss:7.2.0
+sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/efk:kibana_7.2.0
+
 ```
 
 
