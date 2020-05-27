@@ -145,12 +145,12 @@ sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG
 sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG grafana/grafana:$TAG
 sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/grafana:$TAG
 
-----------------------------------------configmap-reload镜像------------------------------------TAG='v0.3.0'
+----------------------------------------configmap-reload镜像-----------------------------TAG='v0.3.0'
 sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG jimmidyson/configmap-reload:$TAG
 sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 
-----------------------------------------prometheus镜像------------------------------------
+----------------------------------------prometheus镜像-----------------------------------
 cat >prometheus.images<<EOF
 alertmanager_v0.20.0
 node-exporter_v0.18.1	
