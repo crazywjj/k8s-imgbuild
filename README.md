@@ -49,7 +49,7 @@
 | prometheus         | /kube-prometheus/prometheus/alertmanager/v0.20.0            | alertmanager_v0.20.0                | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
 |                    | /kube-prometheus/prometheus/node-exporter/v0.18.1           | node-exporter_v0.18.1               | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
 |                    | /kube-prometheus/prometheus/prometheus/v2.17.2              | prometheus_v2.17.2                  | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:[镜像版本号] |
-| kube-state-metrics |                                                             |                                     |                                                              |
+| kube-state-metrics | /kube-state-metrics/v2.0.0-rc.1                             | v2.0.0-rc.1                         | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-state-metrics:[镜像版本号] |
 | coreos             | /kube-prometheus/coreos/k8s-prometheus-adapter-amd64/v0.5.0 | k8s-prometheus-adapter-amd64_v0.5.0 | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
 |                    | /kube-prometheus/coreos/kube-rbac-proxy/v0.4.1              | kube-rbac-proxy_v0.4.1              | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
 |                    | /kube-prometheus/coreos/kube-state-metrics/v1.9.5           | kube-state-metrics_v1.9.5           | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/coreos:[镜像版本号] |
@@ -152,7 +152,7 @@ sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG jimmidyson/configmap-reload:$TAG
 sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/configmap-reload:$TAG
 
-----------------------------------------prometheus镜像-------------------------------
+----------------------------------------prometheus镜像-----------------------------
 cat >prometheus.images<<EOF
 alertmanager_v0.20.0
 node-exporter_v0.18.1	
@@ -167,7 +167,11 @@ do
     sudo docker tag  registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i quay.io/prometheus/$REPO:$TAG
     sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/prometheus:$i
 done
-
+--------------------------------------kube-state-metrics镜像--------------------------
+TAG='v2.0.0-rc.1'
+sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/kube-state-metrics:$TAG
+sudo docker tag registry.cn-beijing.aliyuncs.com/crazywjj/kube-state-metrics:$TAG k8s.gcr.io/kube-state-metrics/kube-state-metrics:$TAG
+sudo docker rmi -f registry.cn-beijing.aliyuncs.com/crazywjj/kube-state-metrics:$TAG
 ----------------------------------------coreos镜像------------------------------------
 cat >coreos.images<<EOF
 k8s-prometheus-adapter-amd64_v0.5.0
