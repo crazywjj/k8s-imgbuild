@@ -67,6 +67,12 @@
 
 
 
+| 仓库名称    | Dockerfile目录 | 镜像版本 | 拉取镜像                                                     |
+| ----------- | -------------- | -------- | ------------------------------------------------------------ |
+| hpa-example | /hpa-example   | v1.0     | sudo docker pull registry.cn-beijing.aliyuncs.com/crazywjj/hpa-example:[镜像版本号] |
+|             |                |          |                                                              |
+|             |                |          |                                                              |
+
 
 
 **下载所有镜像并改名：**
